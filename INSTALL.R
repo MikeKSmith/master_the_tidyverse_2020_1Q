@@ -45,3 +45,4 @@ install.packages(c("babynames",
                    "rstanarm",
                    "rstan"))
 devtools::install_github("metrumresearchgroup/metrumrg")
+devtools::install_github("jonocarroll/ggeasy")

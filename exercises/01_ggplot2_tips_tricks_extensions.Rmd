@@ -452,7 +452,7 @@ theoPlot1 +
 
 ### xgx_annotate_status_png - overlay .png files with "DRAFT" status
 
-```{r, fig.width = "80%"}
+```{r}
 ggsave(plot = theoPlot1, filename = "Theoph_profiles.png")
 xgx_annotate_status_png(file_or_dir = "Theoph_profiles.png")
 knitr::include_graphics("Theoph_profiles.png")

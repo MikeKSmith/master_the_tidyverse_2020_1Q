@@ -1,0 +1,56 @@
+---
+title: "Writing functions with RStudio IDE"
+output: html_notebook
+---
+
+The RStudio IDE really helps you write functions. Let's start with the familiar
+example dataset from the `06-Iteration.Rmd` document.
+
+```{r}
+# Toy data
+set.seed(1000)
+exams <- list(
+  student1 = round(runif(10, 50, 100)),
+  student2 = round(runif(10, 50, 100)),
+  student3 = round(runif(10, 50, 100)),
+  student4 = round(runif(10, 50, 100)),
+  student5 = round(runif(10, 50, 100))
+)
+```
+
+Now let's write a function that will compute the average, excluding the lowest 
+score. First, let's write the function out using a single vector of data from
+the `exams` list. This lets us test that the function is well defined and gives 
+us the result we're expecting.
+
+```{r calculate_new_average}
+(sum(exams$student1) - min(exams$student1)) / (length(exams$student1) - 1)
+```
+
+Now, highlight the single line of code above and from the "Code" menu in the 
+RStudio IDE, select "Extract function". This will prompt you to give the function
+a name. What you get back is a defined function, and RStudio will guess what the
+most appropriate inputs are.
+
+**QUESTION** - What do you think the input is to your new function?  How could
+we change this so that it applies to a vector, rather than a list input?
+
+Repeat the same exercise (Code -> Extract function) on the code below (highlight
+only the line with `(sum(x) - min(x)...)`). Check that this function works 
+for the different values of x.
+
+```{r}
+x <- exams$student1
+
+(sum(x) - min(x)) / (length(x) - 1)
+
+```
+
+## Troubleshooting and debugging functions.
+When you write a more complex function it can sometimes be difficult to 
+troubleshoot and debug when things go wrong. This is especially true if you 
+have many arguments to the function.
+
+But do not fear! RStudio IDE has a bunch of useful functionality that will help
+you step through functions - even functions that call functions - to get to 
+the bottom of what's going wrong.

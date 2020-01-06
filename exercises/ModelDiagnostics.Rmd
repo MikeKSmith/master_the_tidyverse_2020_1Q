@@ -1,0 +1,21 @@
+## Model Diagnostics
+Similarly to the Data Manipulation section above, this section will only appear
+if we choose to render the report for quantitative reviewers using the 
+`quantAudience` parameter.
+
+```{r diagnostics}
+broom.mixed::augment(bestFit) %>%
+  ggplot(data=., aes(x=outcome, y=.fitted, group=THERAPY, colour=THERAPY)) +
+  geom_point() + 
+  geom_abline(colour="red")
+
+broom.mixed::augment(bestFit) %>%
+  ggplot(data=., aes(x=outcome, y=.resid, group=THERAPY, colour=THERAPY)) +
+  geom_point() + 
+  geom_hline(aes(yintercept=0),colour="red")
+
+broom.mixed::augment(bestFit) %>%
+  ggplot(data=., aes(x=RELDAYS, y=.resid, group=THERAPY, colour=THERAPY)) +
+  geom_point() + 
+  geom_hline(aes(yintercept=0),colour="red")
+```

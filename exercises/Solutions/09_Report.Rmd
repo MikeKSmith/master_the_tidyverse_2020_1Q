@@ -1,5 +1,12 @@
 ---
 title: "Garrett"
+output:
+  html_document:
+    df_print: paged
+    toc: TRUE
+    toc_float: TRUE
+    toc_depth: 4
+    code_download: TRUE
 ---
 
 ```{r setup, include=FALSE}
@@ -48,3 +55,15 @@ name_data %>%
     theme_bw()
 ```
 
+
+*** 
+## Appendix 1 - all code used in this training
+```{r, ref.label=knitr::all_labels(),echo=TRUE, eval=FALSE}
+```
+
+***
+## Appendix 2 - R Session Information
+
+```{r}
+sessionInfo()
+```

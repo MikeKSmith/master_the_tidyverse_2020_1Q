@@ -1,12 +1,18 @@
 ---
 title: "Data Types"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
+    toc: TRUE
+    toc_float: TRUE
+    toc_depth: 4
+    code_download: TRUE
 ---
 
 ```{r setup}
 library(tidyverse)
 library(babynames)
-#library(nycflights13)
+library(nycflights13)
 library(stringr)
 library(forcats)
 library(lubridate)
@@ -25,6 +31,11 @@ Finally, create a summary table that shows:
 2. What proportion of flights were delayed
 
 ```{r}
+## Your Turn 1
+flights %>%
+  mutate(delayed = arr_delay > 0) %>%
+  drop_na(delayed) %>%
+  summarise(total = sum(delayed), prop = mean(delayed))
 
 ```
 
@@ -33,6 +44,7 @@ Finally, create a summary table that shows:
 In the next few examples we're going to clean up a vector of treatment labels.
 Let's first read the data so we can see what we're going to work with:
 ```{r}
+## Your Turn 2
 myTrts <- readRDS("Treatment_label_example.rds")
 myTrts
 ```
@@ -59,6 +71,8 @@ str_replace_all(pattern =  , replacement =  )
 str_subset(pattern = )
 
 myTrts <- myTrts %>%
+  
+  
 ```
 
 ## Your Turn 2 and a bit
@@ -70,10 +84,10 @@ But see also
 https://stringr.tidyverse.org/articles/regular-expressions.html) 
 
 ```{r}
-str_subset(myTrts, pattern = "")
-
+## Your Turn 2 and a bit
 myTrts %>%
-  str_subset(pattern = "")
+  str_subset(pattern = "\\d+\\.+\\d+")
+
 ```
 
 ## Your Turn 3
@@ -82,14 +96,15 @@ Make a sensible graph of average TV consumption by marital status using the
 functions below and code template used in the slides for the `relig` factor.
 
 ```{r}
-drop_na( ) %>%
-group_by( ) %>%
-summarise( ) %>%
-
+## Your Turn 3
 gss_cat %>%
-  
-  ggplot(aes(tvhours, fct_reorder(marital, tvhours))) +
-    geom_point()
+  drop_na(age) %>%
+  group_by(age, marital) %>%
+  count() %>%
+  mutate(prop = n / sum(n)) %>%
+  ggplot(aes(age, prop,color = fct_reorder2(marital, age, prop))) +
+    geom_line()
+
 ```
 
 ## Your Turn 4
@@ -98,6 +113,20 @@ Do you think liberals or conservatives watch more TV?
 Compute average tv hours by party ID an then plot the results.
 
 ```{r}
+## Your Turn 4
+gss_cat %>%
+   drop_na(tvhours) %>%
+    mutate(partyid = fct_recode(partyid,
+    "Republican, strong"    = "Strong republican",
+    "Republican, weak"      = "Not str republican",
+    "Independent, near rep" = "Ind,near rep",
+    "Independent, near dem" = "Ind,near dem",
+    "Democrat, weak"        = "Not str democrat",
+    "Democrat, strong"      = "Strong democrat")) %>% 
+   group_by(partyid) %>%
+   summarise(tvhours = mean(tvhours)) %>%
+   ggplot(aes(tvhours, fct_reorder(partyid, tvhours))) +
+     geom_point() + labs(y = "partyid")
 
 ```
 
@@ -108,6 +137,11 @@ What is the best time of day to fly?
 Use the `hour` and `minute` variables in `flights` to compute the time of day for each flight as an hms. Then use a smooth line to plot the relationship between time of day and `arr_delay`.
 
 ```{r}
+## Your Turn 5
+flights %>% 
+  mutate(time = hms(hour = hour, minute = minute)) %>% 
+  ggplot(aes(time, arr_delay)) + 
+    geom_point(alpha = 0.2) + geom_smooth()
 
 ```
 
@@ -122,25 +156,26 @@ Calculate the average `arr_delay` by day of the week.
 Plot the results as a column chart (bar chart) with `geom_col()`.
 
 ```{r}
+## Your Turn 6
 flights %>% 
-  mutate(weekday = _______________________________) %>% 
-  __________________ %>% 
+  mutate(weekday = wday(time_hour, label = TRUE, abbr = FALSE)) %>% 
+  group_by(weekday) %>% 
   drop_na(arr_delay) %>% 
-  summarise(avg_delay = _______________) %>% 
+  summarise(avg_delay = mean(arr_delay)) %>% 
   ggplot() +
-    ___________(mapping = aes(x = weekday, y = avg_delay))
+    geom_col(mapping = aes(x = weekday, y = avg_delay))
+
+```
+
+
+*** 
+## Appendix 1 - all code used in this training
+```{r, ref.label=knitr::all_labels(),echo=TRUE, eval=FALSE}
 ```
 
 ***
+## Appendix 2 - R Session Information
 
-# Take Aways
-
-Dplyr gives you three _general_ functions for manipulating data: `mutate()`, `summarise()`, and `group_by()`. Augment these with functions from the packages below, which focus on specific types of data.
-
-Package   | Data Type
---------- | --------
-stringr   | strings
-forcats   | factors
-hms       | times
-lubridate | dates and times
-
+```{r}
+sessionInfo()
+```

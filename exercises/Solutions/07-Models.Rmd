@@ -1,6 +1,12 @@
 ---
 title: "Models"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
+    toc: TRUE
+    toc_float: TRUE
+    toc_depth: 4
+    code_download: TRUE
 ---
 
 ```{r setup, message=FALSE}
@@ -16,7 +22,9 @@ wages <- heights %>% filter(income > 0)
 Fit the model on the slide and then examine the output. What does it look like?
 
 ```{r}
-
+## Your Turn 1
+mod_e <- wages %>%
+  lm(log(income) ~ education, data = .)
 ```
 
 ## Your Turn 2
@@ -27,6 +35,14 @@ Use a pipe to model `log(income)` against `height`. Then use broom and dplyr fun
 2. The **adj.r.squared** and **p.value** for the overall model
 
 ```{r}
+## Your Turn 2
+mod_h <- wages %>% lm(log(income) ~ height, data = .)
+mod_h %>%
+  tidy()
+
+mod_h %>% 
+  glance() %>% 
+  select(adj.r.squared, p.value)
 
 ```
 
@@ -35,6 +51,12 @@ Use a pipe to model `log(income)` against `height`. Then use broom and dplyr fun
 Model `log(income)` against `education` _and_ `height`. Do the coefficients change?
 
 ```{r}
+## Your Turn 3
+mod_eh <- wages %>% 
+  lm(log(income) ~ education + height, data = .)
+
+mod_eh %>% 
+  tidy()
 
 ```
 
@@ -43,6 +65,12 @@ Model `log(income)` against `education` _and_ `height`. Do the coefficients chan
 Model `log(income)` against `education` and `height` and `sex`. Can you interpret the coefficients?
 
 ```{r}
+## Your Turn 4
+mod_ehs <- wages %>% 
+  lm(log(income) ~ education + height + sex, data = .)
+
+mod_ehs %>% 
+  tidy()
 
 ```
 
@@ -53,12 +81,13 @@ Use a broom function and ggplot2 to make a line graph of `height` vs `.fitted` f
 _Bonus: Overlay the plot on the original data points._
 
 ```{r}
-mod_h <- wages %>% lm(log(income) ~ height, data = .)
-
+## Your Turn 5
 mod_h %>% 
-  ________(data = wages) %>% 
-  ________ +
-    ________
+  augment(data = wages) %>% 
+  ggplot(mapping = aes(x = height, y = .fitted)) +
+    geom_point(mapping = aes(y = log(income)), alpha = 0.1) +
+    geom_line(color = "blue")
+
 ```
 
 ## Your Turn 6
@@ -66,12 +95,13 @@ mod_h %>%
 Repeat the process to make a line graph of `height` vs `.fitted` colored by `sex` for model mod_ehs. Are the results interpretable? Add `+ facet_wrap(~education)` to the end of your code. What happens?
 
 ```{r}
-mod_ehs <- wages %>% lm(log(income) ~ education + height + sex, data = .)
-
-______ %>% 
+## Your Turn 6
+mod_ehs %>% 
   augment(data = wages) %>% 
-  ggplot(mapping = aes(x = height, y = .fitted, __________)) +
-    geom_line()
+  ggplot(mapping = aes(x = height, y = .fitted, color = sex)) +
+    geom_line() +
+    facet_wrap(~ education)
+
 ```
 
 ## Your Turn 7
@@ -81,25 +111,27 @@ Use one of `spread_predictions()` or `gather_predictions()` to make a line graph
 Add `+ facet_grid(sex ~ education)` to the end of your code. What happens?
 
 ```{r warning = FALSE, message = FALSE}
+## Your Turn 7
 mod_h <- wages %>% lm(log(income) ~ height, data = .)
 mod_eh <- wages %>% lm(log(income) ~ education + height, data = .)
 mod_ehs <- wages %>% lm(log(income) ~ education + height + sex, data = .)
 
-_____ %>% 
-  _____________________ %>% 
-  filter(education >= 12) %>% 
-  ggplot(mapping = aes(x = height, y = _____, color = _____)) +
-    geom_line()
+wages %>% 
+  gather_predictions(mod_h, mod_eh, mod_ehs) %>% 
+  ggplot(mapping = aes(x = height, y = pred, color = model)) +
+    geom_line() +
+    facet_grid(sex ~ education)
+
+```
+
+*** 
+## Appendix 1 - all code used in this training
+```{r, ref.label=knitr::all_labels(),echo=TRUE, eval=FALSE}
 ```
 
 ***
+## Appendix 2 - R Session Information
 
-# Take Aways
-
-* Use `glance()`, `tidy()`, and `augment()` from the **broom** package to return model values in a data frame.
-
-* Use `add_predictions()` or `gather_predictions()` or `spread_predictions()` from the **modelr** package to visualize predictions.
-
-* Use `add_residuals()` or `gather_residuals()` or `spread_residuals()` from the **modelr** package to visualize residuals.
-
-
+```{r}
+sessionInfo()
+```

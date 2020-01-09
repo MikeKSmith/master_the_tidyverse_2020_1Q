@@ -1,6 +1,12 @@
 ---
 title: "Visualize Data"
-output: html_document
+output:
+  html_document:
+    df_print: paged
+    toc: TRUE
+    toc_float: TRUE
+    toc_depth: 4
+    code_download: TRUE
 ---
 
 ```{r setup}
@@ -9,6 +15,7 @@ library(tidyverse)
 
 ```{r}
 mpg
+  
 ```
 
 
@@ -17,8 +24,10 @@ mpg
 Run the code on the slide to make a graph. Pay strict attention to spelling, capitalization, and parentheses!
 
 ```{r}
+## Your Turn 1
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy))
+  
 ```
 
 ## Your Turn 2
@@ -26,8 +35,10 @@ ggplot(data = mpg) +
 Add `color`, `size`, `alpha`, and `shape` aesthetics to your graph. Experiment.  
 
 ```{r}
+## Your Turn 2
 ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, color = class))
+  
 ```
 
 ## Your Turn 3
@@ -35,8 +46,10 @@ ggplot(data = mpg) +
 Replace this scatterplot with one that draws boxplots. Use the cheatsheet. Try your best guess.
 
 ```{r}
+## Your Turn 3
 ggplot(mpg) + 
   geom_boxplot(mapping = aes(x = class, y = hwy))
+  
 ```
 
 ## Your Turn 4
@@ -44,8 +57,10 @@ ggplot(mpg) +
 Make a histogram of the `hwy` variable from `mpg`.
 
 ```{r}
+## Your Turn 4
 ggplot(data = mpg) +
   geom_histogram(mapping = aes(x = hwy), binwidth = 2)
+  
 ```
 
 ## Your Turn 5
@@ -53,9 +68,10 @@ ggplot(data = mpg) +
 Make a density plot of `hwy` colored by `class`.
 
 ```{r}
+## Your Turn 5
 ggplot(data = mpg) +
   geom_density(mapping = aes(x = hwy, color = class))
-
+  
 ```
 
 ## Your Turn 6
@@ -63,8 +79,10 @@ ggplot(data = mpg) +
 Make a bar chart `hwy` colored by `class`.
 
 ```{r}
+## Your Turn 6
 ggplot(data = mpg) +
   geom_bar(mapping = aes(x = class, fill = class))
+  
 ```
 
 ## Your Turn 7
@@ -72,9 +90,11 @@ ggplot(data = mpg) +
 Predict what this code will do. Then run it.
 
 ```{r}
+## Your Turn 7
 ggplot(mpg) + 
   geom_point(aes(displ, hwy)) +
   geom_smooth(aes(displ, hwy))
+  
 ```
 
 ## Your Turn 9
@@ -82,5 +102,20 @@ ggplot(mpg) +
 Save the last plot and then locate it in the files pane.
 
 ```{r, eval = FALSE}
+## Your Turn 9
 ggsave("my-plot.png")
+  
 ```
+
+*** 
+## Appendix 1 - all code used in this training
+```{r, ref.label=knitr::all_labels(),echo=TRUE, eval=FALSE}
+```
+
+***
+## Appendix 2 - R Session Information
+
+```{r}
+sessionInfo()
+```
+

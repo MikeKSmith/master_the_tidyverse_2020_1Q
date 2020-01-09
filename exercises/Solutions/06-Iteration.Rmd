@@ -1,6 +1,12 @@
 ---
 title: "Iteration"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
+    toc: TRUE
+    toc_float: TRUE
+    toc_depth: 4
+    code_download: TRUE
 ---
 
 ```{r setup}
@@ -24,6 +30,7 @@ extra_credit <- list(0, 0, 10, 10, 15)
 Here is a list:
 
 ```{r}
+## Your Turn 1
 a_list <- list(num = c(8, 9), 
             log = TRUE,    
             cha = c("a", "b", "c"))
@@ -37,6 +44,7 @@ a_list["num"]
 
 ```{r}
 a_list$num
+
 ```
 
 ## Your Turn 2
@@ -44,6 +52,7 @@ a_list$num
 What will each of these return? Run the code chunks to confirm.
 
 ```{r}
+## Your Turn 2
 vec <- c(-2, -1, 0, 1, 2)
 abs(vec)
 ```
@@ -51,6 +60,7 @@ abs(vec)
 ```{r}
 lst <- list(-2, -1, 0, 1, 2)
 abs(lst)
+
 ```
 
 ## Your Turn 3
@@ -58,6 +68,7 @@ abs(lst)
 Run the code in the chunks. What does it return?
 
 ```{r}
+## Your Turn 3
 list(student1 = mean(exams$student1),
      student2 = mean(exams$student2),
      student3 = mean(exams$student3),
@@ -67,6 +78,7 @@ list(student1 = mean(exams$student1),
 
 ```{r}
 map(exams, mean)
+
 ```
 
 ## Your Turn 4
@@ -74,6 +86,7 @@ map(exams, mean)
 Calculate the variance (`var()`) of each student’s exam grades.
 
 ```{r}
+## Your Turn 4
 
 ```
 
@@ -82,6 +95,7 @@ Calculate the variance (`var()`) of each student’s exam grades.
 Calculate the max grade (max())for each student. Return the result as a vector.
 
 ```{r}
+## Your Turn 5
 
 ```
 
@@ -94,6 +108,7 @@ Write a function that counts the best exam twice and then takes the average. Use
 3. Add the name of the real object as the function argument 
 
 ```{r}
+## Your Turn 6
 
 ```
 
@@ -102,22 +117,20 @@ Write a function that counts the best exam twice and then takes the average. Use
 Compute a final grade for each student, where the final grade is the average test score plus any `extra_credit` assigned to the student. Return the results as a double (i.e. numeric) vector.
 
 ```{r}
+### Your Turn 7
 
 ```
 
 
+
+*** 
+## Appendix 1 - all code used in this training
+```{r, ref.label=knitr::all_labels(),echo=TRUE, eval=FALSE}
+```
+
 ***
+## Appendix 2 - R Session Information
 
-# Take Aways
-
-Lists are a useful way to organize data, but you need to arrange manually for functions to iterate over the elements of a list.
-
-You can do this with the `map()` family of functions in the purrr package.
-
-To write a function, 
-
-1. Write code that solves the problem for a real object  
-2. Wrap the code in `function(){}` to save it  
-3. Add the name of the real object as the function argument 
-
-This sequence will help prevent bugs in your code (and reduce the time you spend correcting bugs). 
+```{r}
+sessionInfo()
+```

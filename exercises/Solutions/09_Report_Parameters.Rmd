@@ -2,6 +2,13 @@
 title: "`r params$name`"
 params: 
   name: "Garrett"
+output:
+  html_document:
+    df_print: paged
+    toc: TRUE
+    toc_float: TRUE
+    toc_depth: 4
+    code_download: TRUE
 ---
 
 ```{r setup, include=FALSE}

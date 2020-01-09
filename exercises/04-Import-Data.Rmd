@@ -87,7 +87,7 @@ Notice that the code above saves the output to an object named depression. You m
 
 ## Parsing NA's
 
-If you examine `depression` closely, you will notice that the initial values in the `HAMDTL17` column are `.`. Can you guess what `.` stands for? The compilers of the nimbus data set used `.` to denote a missing value. In other words, they used `.` in the same way that R uses the `NA` value. 
+If you examine `depression` closely, you will notice that the initial values in the `HAMDTL17` column are `.`. Can you guess what `.` stands for? The compilers of the data set used `.` to denote a missing value. In other words, they used `.` in the same way that R uses the `NA` value. 
 
 If you'd like R to treat these `.` values as missing values (and you should) you will need to convert them to `NA`s. One way to do this is to ask `read_csv()` to parse `.` values as `NA` values when it reads in the data. To do this add the argument `na = "."` to `read_csv()`:
 
@@ -193,17 +193,6 @@ insertPlot(wb = wb,sheet = "Graph")
 saveWorkbook(wb, "depression.xlsx", overwrite = TRUE)
 ```
 
-## datapasta - Creating data from clipboard
-`datapasta` is a useful RStudio IDE addin that allows you to copy rectangular data (from PDFs, websites and other sources) then choose how you want to "paste" that data, either creating an object on the fly,
-or by writing a `tribble` statement for inclusion in a script or Notebook.
-
-Try it by visiting: https://cran.r-project.org/web/packages/datapasta/vignettes/how-to-datapasta.html and copying the Brisbane weather data from the table into the clipboard. Then using the "Addins" dropdown menu above,
-paste it into the chunk below as a tribble.
-
-```{r}
-
-```
-
 ## Using rvest to scrape data from websites
 `rvest` is very useful if you need to scrape data from a website. The `read_html` function will read and parse the HTML code from the website, but from there you need to rely on identifying relevant parts of the HTML code
 to pick up the data of interest. If you can access web data via an API then the `httr` package or the `polite` package (https://dmi3kno.github.io/polite/) will do better. 
@@ -219,6 +208,17 @@ sayCheese %>%
   html_text()
 ```
 
+## datapasta - Creating data from clipboard
+`datapasta` is a useful RStudio IDE addin that allows you to copy rectangular data (from PDFs, websites and other sources) then choose how you want to "paste" that data, either creating an object on the fly, or by writing a `tribble` statement for inclusion in a script or Notebook.
+
+***(UNFORTUNATELY datapasta DOESN'T WORK ON RSTUDIO.CLOUD)***
+
+Try it by visiting: https://cran.r-project.org/web/packages/datapasta/vignettes/how-to-datapasta.html and copying the Brisbane weather data from the table into the clipboard. Then using the "Addins" dropdown menu above,
+paste it into the chunk below as a tribble.
+
+```{r}
+
+```
 
 ***
 

@@ -6,7 +6,7 @@ output: html_notebook
 ```{r setup}
 library(tidyverse)
 library(babynames)
-#library(nycflights13)
+library(nycflights13)
 library(stringr)
 library(forcats)
 library(lubridate)

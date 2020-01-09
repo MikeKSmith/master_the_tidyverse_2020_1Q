@@ -32,8 +32,7 @@ ggplot(data = Indometh) +
   geom_line(mapping = aes(x = , y = , group = )) + 
   labs(x = ,
        y = ,
-       title = ) + 
-  
+       title = ) 
 ```
 
 ## Extra credit - boxplots

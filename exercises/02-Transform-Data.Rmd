@@ -122,7 +122,7 @@ Use `%>%` to write a sequence of functions that:
 
 ```
 
-## Exam
+## Check your understanding
 
 1. Trim `babynames` to just the rows that contain your `name` and your `sex`  
 2. Trim the result to just the columns that will appear in your graph (not strictly necessary, but useful practice)  

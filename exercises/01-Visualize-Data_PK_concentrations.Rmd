@@ -21,23 +21,45 @@ head(Indometh)
 ```
 
 ## Test your knowledge - spaghetti plot
-Create a "spaghetti plot" of indomethacin PK concentration profiles and add
-title and axes labels. I've provided some code statements that you may find 
+Create a "spaghetti plot" of indomethacin PK concentration profiles.
+I've provided some code statements that you may find 
 useful. Fill in the blanks. Keep testing your code until you get the desired plot.
 Consult the "Data Visualization with ggplot2" Cheat Sheet to change the y-axis
 to be on the log10 scale. It should be one line of code. 
 
+Once you're happy with your plot, add axes labels and a title then save your 
+plot as a `.png` file using the `ggsave` function.
+
+
 ```{r}
-ggplot(data = Indometh) +
-  geom_line(mapping = aes(x = , y = , group = )) + 
-  labs(x = ,
-       y = ,
-       title = ) 
+spagPlot <- ggplot(data = Indometh) +
+  geom_line( mapping = aes(x =  , y =  , group =  ) )
+
+spagPlot 
+
+# ggsave( )
 ```
 
-## Extra credit - boxplots
+## Extra credit - add a summary to the above plot
 
-Replace the scatterplot above with one that draws boxplots at each time point. 
+Use the Cheat Sheet to identify how to add a summary statistic line to the plot.
+A suitable example might be a median line, but you may also want to experiment
+with median and quantiles or mean and standard errors. 
+
+You can reuse the plot object from the chunk above as the starting point for the 
+next graph. Simply refer to the `spagPlot` object then `+` new layers.
+
+HINT: You may need to reconsider the grouping aesthetic for summaries.
+
+```{r}
+spagPlot + 
+
+```
+
+
+## Extra-extra credit - boxplots
+
+Replace the spaghetti plot above with one that draws boxplots at each time point. 
 Use the cheatsheet. Try your best guess.
 
 ```{r}

@@ -45,7 +45,7 @@ instrument2 <- tribble(
 ## babynames
 
 ```{r}
-babynames
+head(babynames, 10)
 ```
 
 

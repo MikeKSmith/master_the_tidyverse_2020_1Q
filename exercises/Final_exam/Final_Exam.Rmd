@@ -1,0 +1,79 @@
+---
+title: "Master the tidyverse - Final Exam"
+author: "Mike K Smith"
+date: "18/02/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## What is this "Final Exam"?
+
+While I'm calling this the "Final Exam" for the "Master the Tidyverse" course,
+I am not going to grade the returned markdown documents, nor am I going to be
+awarding "Certified" status for the course based on your response. 
+The "Exam" here is to help you check your own understanding of the course 
+material and to encourage you to try out the methods and tools you have learned 
+on some real data.
+
+## What is the data?
+
+In this folder you'll find (**anonymised!**) attendance data across the sessions
+we have run for this "Master the tidyverse" course. 
+
+```{r}
+read_csv("AttendanceDetailReport_185138_511218795_Anonymised.csv") %>%
+  head()
+```
+
+You'll see information about the event scheduled start and end dates and times,
+actual start and end times, whether the attendee was a panellist or a regular
+attendee; then for each `attendeeID` what time they joined the call, what time they
+left the call and duration information. Note that each `attendeeID` might have 
+multiple joining and leaving times since they might start the call on a mobile 
+phone and then transfer to a desktop machine for the call when they reach the
+office.
+
+## What would I like you to do?
+
+I would like you to read the data, process and tidy the information, and present
+some insight about the following aspects:
+
+  * The number of distinct attendees across sessions
+  * How many attendees came to all sessions?
+  * How long did attendees spend at each session (total) and what is the 
+  distribution of attendance within each session i.e. if we sum the amount of 
+  time spent in the session for each attendeeID.
+  * Which sessions were more popular?
+  * Think about a visual way(s) to present some of this information.
+
+Extra credit:
+
+  *  Is there a way to classify attendees as having "completed"
+  the session i.e. a duration which separates those that attend the majority of
+  the session compared to those that drop off / drop out of each session?
+  
+Present your insights in a Report using rmarkdown to gather your code and results.
+
+## Getting started:
+
+I'm including a little snippet of code to help you get started. You should 
+expand on this to ensure that the information you are reading in is parsed 
+correctly e.g. with dates, times, durations.
+
+```{r}
+inFiles <- tools::list_files_with_exts(dir = file.path(getwd()),
+                                        exts = "csv")
+
+readMyCSV <- function(x){
+  myData <- readr::read_csv(x)
+  # ...
+}
+
+myData <- inFiles %>%
+  purrr::map(readMyCSV) 
+```
+

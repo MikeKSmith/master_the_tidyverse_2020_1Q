@@ -35,18 +35,19 @@ attendee; then for each `attendeeID` what time they joined the call, what time t
 left the call and duration information. Note that each `attendeeID` might have 
 multiple joining and leaving times since they might start the call on a mobile 
 phone and then transfer to a desktop machine for the call when they reach the
-office.
+office.  The `attendanceID` is a unique number for each individual and should be 
+consistent across sessions. The numbers are not consecutive.
 
 ## What would I like you to do?
 
 I would like you to read the data, process and tidy the information, and present
 some insight about the following aspects:
 
-  * The number of distinct attendees across sessions
+  * The number of distinct attendees for each session and across sessions.
   * How many attendees came to all sessions?
   * How long did attendees spend at each session (total) and what is the 
   distribution of attendance within each session i.e. if we sum the amount of 
-  time spent in the session for each attendeeID.
+  time spent in the session for each `attendeeID`.
   * Which sessions were more popular?
   * Think about a visual way(s) to present some of this information.
 
@@ -56,13 +57,20 @@ Extra credit:
   the session i.e. a duration which separates those that attend the majority of
   the session compared to those that drop off / drop out of each session?
   
-Present your insights in a Report using rmarkdown to gather your code and results.
+Present your insights in a **REPRODUCIBLE** report using rmarkdown to gather your
+code and results.Present your data graphically and in tabular form, whichever is 
+suitable for conveying the information best. You can also incorporate numbers and
+statistics into sentences of the report using the inline r code functionality within
+the rmarkdown package.
 
 ## Getting started:
 
 I'm including a little snippet of code to help you get started. You should 
-expand on this to ensure that the information you are reading in is parsed 
-correctly e.g. with dates, times, durations.
+expand on the `readMyCSV` function to ensure that the information you are reading
+in is parsed correctly for its type e.g. with dates, times, durations. 
+
+You may also want to perform some basic exploratory data analysis before you start
+writing the report.
 
 ```{r}
 inFiles <- tools::list_files_with_exts(dir = file.path(getwd()),

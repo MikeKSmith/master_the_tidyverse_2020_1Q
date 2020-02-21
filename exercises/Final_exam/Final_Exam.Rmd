@@ -77,11 +77,14 @@ inFiles <- tools::list_files_with_exts(dir = file.path(getwd()),
                                         exts = "csv")
 
 readMyCSV <- function(x){
-  myData <- readr::read_csv(x)
+  myData <- readr::read_csv(x) %>%
+     dplyr::rename_all(~stringr::str_replace_all(., "\\s+", "")) %>%
+     dplyr::rename_all(~stringr::str_replace_all(., "[:punct:]", ""))
   # ...
 }
 
 myData <- inFiles %>%
-  purrr::map(readMyCSV) 
+  purrr::map(readMyCSV)
+myData[[1]]
 ```
 

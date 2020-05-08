@@ -1,14 +1,19 @@
 ---
-title: "Garrett"
+title: "Michael"
+output: 
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
 ---
 
+# Introduction
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(babynames)
 
 name_data <- 
   babynames %>% 
-  filter(name == "Garrett") %>% 
+  filter(name == "Michael") %>% 
   mutate(sex = case_when(sex == "M" ~ "Male", 
                          sex == "F" ~ "Female"))
 
@@ -35,14 +40,16 @@ sex <-
   switch("Male" = "boy's", "Female" = "girl's")
 ```
 
-There have been **TODO** children named Garrett. The name Garrett was most popular in TODO, when TODO TODO were named Garrett. Garrett is traditionally a TODO name.
+## Summary
+There have been **`r n`** children named Michael. The name Michael was most popular in `r most$year`, when `r most$n` `r most_sex` were named Michael. Michael is traditionally a `r sex` name.
 
-```{r}
+## Plot
+```{r echo=FALSE}
 name_data %>% 
   ggplot() +
     geom_ribbon(mapping = aes(x = year, ymax = prop, fill = sex), ymin = 0, alpha = 0.5) +
-    labs(title = "Popularity of the name Garrett", 
-         subtitle = "The proportion of boys and girls named Garrett, 1880-2017", 
+    labs(title = "Popularity of the name Michael", 
+         subtitle = "The proportion of boys and girls named Michael, 1880-2017", 
          caption = "Data from the US Social Security Administration",
          y = "proportion") +
     theme_bw()
